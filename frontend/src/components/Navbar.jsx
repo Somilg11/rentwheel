@@ -37,7 +37,7 @@ const Navbar = () => {
             ))}
           </div>
           <div className="hidden md:ml-6 md:flex md:items-center">
-            <Button className="text-sm lg:text-base px-4 py-2 lg:px-6 lg:py-3">Book Now</Button>
+            <Button className="text-sm lg:text-base px-4 py-2 lg:px-6 lg:py-3">Login</Button>
           </div>
           <div className="flex items-center md:hidden">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -66,7 +66,7 @@ const Navbar = () => {
                       {item.name}
                     </a>
                   ))}
-                  <Button className="mt-4 w-full text-base" onClick={() => setIsOpen(false)}>Book Now</Button>
+                  <Button className="mt-4 w-full text-base" onClick={() => setIsOpen(false)}>Login</Button>
                 </div>
               </SheetContent>
             </Sheet>
