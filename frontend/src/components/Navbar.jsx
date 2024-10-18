@@ -1,8 +1,11 @@
-import { useState } from "react";
 import { Car, Menu } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import LoginButton from "./LoginButton";
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +25,9 @@ const Navbar = () => {
           <div className="flex items-center">
             <a href="/" className="flex-shrink-0 flex items-center">
               <Car className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
-              <span className="ml-2 text-lg sm:text-xl font-bold text-primary">rent<span className="text-blue-600">wheel.</span></span>
+              <span className="ml-2 text-lg sm:text-xl font-bold text-primary">
+                rent<span className="text-blue-600">wheel.</span>
+              </span>
             </a>
           </div>
           <div className="hidden md:ml-6 md:flex md:space-x-4 lg:space-x-8">
@@ -37,7 +42,7 @@ const Navbar = () => {
             ))}
           </div>
           <div className="hidden md:ml-6 md:flex md:items-center">
-            <Button className="text-sm lg:text-base px-4 py-2 lg:px-6 lg:py-3">Login</Button>
+            <LoginButton /> {/* Use the LoginButton here */}
           </div>
           <div className="flex items-center md:hidden">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -49,11 +54,16 @@ const Navbar = () => {
               </SheetTrigger>
               <SheetContent side="right" className="w-[250px] sm:w-[300px]">
                 <div className="flex items-center justify-between mb-8">
-                  <a href="/" className="flex items-center" onClick={() => setIsOpen(false)}>
+                  <a
+                    href="/"
+                    className="flex items-center"
+                    onClick={() => setIsOpen(false)}
+                  >
                     <Car className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
-                    <span className="ml-2 text-lg sm:text-xl font-bold text-primary">CarRental</span>
+                    <span className="ml-2 text-lg sm:text-xl font-bold text-primary">
+                      CarRental
+                    </span>
                   </a>
-                  
                 </div>
                 <div className="flex flex-col space-y-4">
                   {navItems.map((item) => (
@@ -66,16 +76,13 @@ const Navbar = () => {
                       {item.name}
                     </a>
                   ))}
-                  <Button className="mt-4 w-full text-base" onClick={() => setIsOpen(false)}>Login</Button>
+                  <LoginButton /> {/* Use the LoginButton in the mobile menu */}
                 </div>
               </SheetContent>
             </Sheet>
           </div>
         </div>
       </div>
-      {/* <div className="md:hidden border-t border-gray-200 py-2">
-        <Button className="w-[90vw] mx-4 rounded-none text-base py-3">Book Now</Button>
-      </div> */}
     </nav>
   );
 };

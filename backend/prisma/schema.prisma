@@ -49,13 +49,20 @@ model Booking {
 
 model CarType {
   id           Int      @id @default(autoincrement())
-  brand        String
-  model        String    // Model field name instead of modelName
-  seatCapacity Int
-  transmission String
-  bookings     Booking[]
+  name         String   // Renamed from brand to name
+  image        String
+  seats        Int
+  pricePerDay  Float
+  fuelType     FuelType
+  transmission Transmission
+  condition    Condition
+  bookings     Booking[] // Adding the relation back to Booking
 }
 
+enum Condition {
+  Excellent
+  Good
+}
 
 enum Transmission {
   AUTO
@@ -66,4 +73,12 @@ enum Gender {
   Male
   Female
   Others
+}
+
+// FuelType enum for different types of fuel
+enum FuelType {
+  Petrol
+  Diesel
+  Electric
+  Hybrid
 }
