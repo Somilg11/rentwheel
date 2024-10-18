@@ -21,7 +21,7 @@ export default function LoginPage() {
     password: '',
   });
 
-  const [redirectTo, setRedirectTo] = useState(null); // State to handle redirects
+  const [redirectTo, setRedirectTo] = useState(null); 
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -33,15 +33,15 @@ export default function LoginPage() {
     try {
       const result = await loginUser(credentials);
       if (result.success) {
-        router.push('/dashboard'); // Redirect to dashboard after successful login
+        router.push('/dashboard'); 
       }
     } catch (error) {
       console.error('Login failed:', error);
-      // Handle error (e.g., show error message to user)
+      
     }
   };
 
-  // Handle redirects for the links
+  
   if (redirectTo) {
     return <Navigate to={redirectTo} replace />;
   }
