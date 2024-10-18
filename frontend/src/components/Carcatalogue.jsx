@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Car, Users, Fuel, Activity } from "lucide-react";
+import { Car, Users, Fuel, Activity, GhostIcon } from "lucide-react";
+import { useNavigate } from 'react-router-dom';
 
 // Car data array
 const cars = [
@@ -62,7 +63,10 @@ export default function CarCatalogue() {
 
 function CarCard({ car }) {
   const [isHovered, setIsHovered] = useState(false);
-
+  const navigate = useNavigate();
+  const goToBooking = () => {
+    navigate('/booking');
+  }
   return (
     <Card
       className="overflow-hidden transition-all duration-300 transform hover:shadow-lg hover:-translate-y-1"
@@ -106,9 +110,11 @@ function CarCard({ car }) {
       </CardContent>
       <CardFooter className="p-4">
         {isHovered && (
-          <Button className="w-full" onClick={() => window.location.href = `/rent/${car.id}`}>
+          
+          <Button className="w-full" onClick={goToBooking}>
             Rent Now
           </Button>
+          
         )}
       </CardFooter>
     </Card>
