@@ -19,10 +19,10 @@ function Hero() {
               Experience the freedom of the open road with our premium car rental service. From compact cars to luxury SUVs, we&apos;ve got your journey covered.
             </p>
             <a
-              href="/rent-now"
+              href="/vehicles"
               className="inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded-full text-lg hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
             >
-              Rent Now
+              Explore Now
             </a>
           </motion.div>
           <motion.div 
