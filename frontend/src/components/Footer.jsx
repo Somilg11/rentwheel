@@ -18,7 +18,7 @@ export default function Footer() {
         <div className="grid gap-12 md:grid-cols-[1.5fr_0.5fr_0.5fr]">
           <div className="not-prose flex flex-col gap-6">
             <a href="/">
-              <h3 className="sr-only">rentwheel.</h3>
+              <h3 className="sr-only">rent<span className="text-blue-600">wheel.</span></h3>
               {/* <Image
                 src={Logo}
                 alt="Logo"
@@ -26,7 +26,7 @@ export default function Footer() {
                 height={27.27}
                 className="transition-all hover:opacity-75 dark:invert"
               ></Image> */}
-              <h2 className="text-xl font-bold inline-flex gap-2 items-center"><Car />rentwheel.</h2>
+              <h2 className="text-xl font-bold inline-flex gap-2 items-center"><Car /><span>rent<span className="text-blue-600">wheel.</span></span></h2>
             </a>
             <p>
               <Balancer>

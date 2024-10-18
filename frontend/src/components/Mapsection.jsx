@@ -19,7 +19,7 @@ export default function MapSection() {
               </h2>
               <p className="text-lg text-gray-700 mb-4">
                 With car rental services available in multiple locations, we make sure you can find a ride wherever you are.
-                Whether you’re planning a road trip or need a car for business, our locations are spread across major cities and towns, making it easier for you to drive in style.
+                Whether you&apos;re planning a road trip or need a car for business, our locations are spread across major cities and towns, making it easier for you to drive in style.
               </p>
               <p className="text-lg text-gray-700 mb-4">
                 Our rental points are conveniently located near airports, downtowns, and travel hubs. Look for us at your destination and start your journey with confidence.

@@ -39,7 +39,7 @@ export default function Newsletter() {
                   </div>
                 </form>
               ) : (
-                <p className="text-center text-green-600 font-bold text-2xl">Thank you for subscribing!</p>
+                <p className="text-center text-blue-600 font-bold text-2xl">Thank you for subscribing!</p>
               )}
             </CardContent>
 
