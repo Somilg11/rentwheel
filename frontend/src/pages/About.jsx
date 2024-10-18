@@ -17,7 +17,9 @@ const About = () => {
       <section className="mb-12 text-center">
         <h1 className="text-4xl font-bold text-primary mb-4">About Rentwheel</h1>
         <p className="text-lg text-gray-700 mb-4">
-          At Rentwheel, we are dedicated to providing you with the best vehicle rental experience. Our mission is to make your travels easier and more enjoyable.
+          At Rentwheel, we are dedicated to providing you with the best vehicle rental experience.
+          <br />
+          Our mission is to make your travels easier and more enjoyable.
         </p>
         <img
           src="/about.png" // Replace with your image path
@@ -30,8 +32,10 @@ const About = () => {
         </p>
       </section>
 
+      <div className="flex justify-between items-center m-5 gap-10">
+
       {/* Our Mission Section */}
-      <section className="mb-12">
+      <section className="mb-12 shadow-lg rounded-lg p-5">
         <h2 className="text-3xl font-bold text-primary mb-4">Our Mission</h2>
         <p className="text-lg text-gray-700">
           Our mission is to provide reliable and affordable vehicle rentals that enhance the travel experience for all of our customers. We strive to deliver exceptional customer service and maintain the highest standards in vehicle maintenance.
@@ -39,7 +43,7 @@ const About = () => {
       </section>
 
       {/* Our Team Section */}
-      <section className="mb-12">
+      <section className="mb-12 shadow-lg rounded-lg h-full p-5">
         <h2 className="text-3xl font-bold text-primary mb-4">Meet Our Team</h2>
         <p className="text-lg text-gray-700 mb-4">
           Our team consists of passionate and experienced professionals dedicated to making your rental experience seamless. We work hard to ensure that every vehicle meets your expectations and our safety standards.
@@ -68,6 +72,7 @@ const About = () => {
           {/* Add more team members as needed */}
         </div>
       </section>
+      </div>
 
       {/* Call to Action Section */}
       <section className="text-center">
