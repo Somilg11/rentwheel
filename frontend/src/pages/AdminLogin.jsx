@@ -31,11 +31,11 @@ export default function AdminLoginPage() {
     try {
       const result = await loginAdmin(credentials);
       if (result.success) {
-        navigate('/admin/dashboard'); // Redirect to admin dashboard after successful login
+        navigate('/admin/dashboard'); 
       }
     } catch (error) {
       console.error('Admin login failed:', error);
-      // Handle error (e.g., show error message to user)
+      
     }
   };
 

@@ -11,16 +11,16 @@ export default function VehiclePage() {
   const [vehicles, setVehicles] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Fetch vehicle data from the backend API when the component mounts
+
   useEffect(() => {
-    // Here you would replace the URL with the endpoint for fetching data from your database
+    
     fetch("/api/vehicles")
       .then((res) => res.json())
       .then((data) => setVehicles(data))
       .catch((error) => console.error("Error fetching vehicles:", error));
   }, []);
 
-  // Filter vehicles based on the search term
+
   const filteredVehicles = vehicles.filter((vehicle) =>
     vehicle.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
