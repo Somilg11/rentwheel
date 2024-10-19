@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Car, Users, Fuel, Activity, GhostIcon } from "lucide-react";
+import { Car, Users, Fuel, Activity } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 
 // Car data array
