@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Navigate } from 'react-router-dom';
-
+import toast from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,8 +11,11 @@ import { Label } from "@/components/ui/label";
 const loginUser = async (credentials) => {
   try {
     const response = await axios.post('http://localhost:3000/user/login', credentials);
-    return response.data; // Assuming the backend sends { message: "Login successful", token: "..." }
+    localStorage.setItem('token', response.data.token);
+    toast.success("Login successful");
+    return response.data; 
   } catch (error) {
+    toast.error("Login failed: Invalid credentials or server error");
     console.error('Login failed', error);
     return null;
   }
@@ -36,7 +40,8 @@ export default function LoginPage() {
     try {
       const result = await loginUser(credentials);
       
-      if (result && result.token) { // Check if the token is present in the response
+      if (result && result.token) {
+        toast.success("Login successful"); 
         console.log('Login successful:', result.message);
         
         // Optionally store the token in localStorage or sessionStorage for future use
@@ -45,9 +50,11 @@ export default function LoginPage() {
         // Redirect to the dashboard or homepage
         navigate('/'); // Correct usage in React Router v6
       } else {
+        toast.error("Login failed: Invalid credentials or server error");
         console.error('Login failed: Invalid credentials or server error');
       }
     } catch (error) {
+      toast.error("Login failed: Invalid credentials or server error");
       console.error('Login failed:', error);
     }
   };

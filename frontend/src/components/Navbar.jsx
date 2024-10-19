@@ -1,17 +1,18 @@
 import { Car, Menu } from "lucide-react";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import LoginButton from "./LoginButton"; // Your existing login button component
-
+import LoginButton from "./LoginButton";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Replace with real login status and user information.
-  
-  
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const navItems = [
     { name: "Home", href: "/" },
@@ -45,12 +46,10 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Right-side section for login button or avatar */}
           <div className="hidden md:ml-6 md:flex md:items-center">
-            <LoginButton name={"Login"} />  
+            <LoginButton isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
           </div>
 
-          {/* Mobile Menu */}
           <div className="flex items-center md:hidden">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
@@ -68,7 +67,7 @@ const Navbar = () => {
                   >
                     <Car className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
                     <span className="ml-2 text-lg sm:text-xl font-bold text-primary">
-                      CarRental
+                      rent<span className="text-blue-600">wheel.</span>
                     </span>
                   </a>
                 </div>
@@ -83,7 +82,7 @@ const Navbar = () => {
                       {item.name}
                     </a>
                   ))}
-                  <LoginButton name={"Login"} />  
+                  <LoginButton isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
                 </div>
               </SheetContent>
             </Sheet>
