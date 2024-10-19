@@ -54,6 +54,7 @@ export default function BookingPage() {
         throw new Error('Failed to create booking')
       }
 
+      // eslint-disable-next-line no-unused-vars
       const data = await response.json()
       toast.success("Your booking has been successfully created.") // Success toast
     } catch (error) {
@@ -65,7 +66,7 @@ export default function BookingPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 pt-44">
+    <div className="max-w-4xl mx-auto p-6 pt-24">
       <h1 className="text-3xl font-bold mb-6">Create a New Booking</h1>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-2 gap-4">

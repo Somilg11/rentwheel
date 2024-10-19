@@ -9,9 +9,13 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog"
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const About = () => {
   return (
+    <>
+    <Navbar />
     <div className="container mx-auto px-4 py-12 pt-40">
       {/* Introduction Section */}
       <section className="mb-12 text-center">
@@ -106,6 +110,8 @@ const About = () => {
       </AlertDialog>
       </section>
     </div>
+    <Footer />
+    </>
   );
 };
 

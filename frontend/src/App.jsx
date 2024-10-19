@@ -1,9 +1,9 @@
-import Navbar from './components/Navbar';  // Navbar uses useNavigate
+// import Navbar from './components/Navbar';  // Navbar uses useNavigate
 import Home from './pages/Home';
 import Vehicles from './pages/Vehicles';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import Footer from './components/Footer';
+// import Footer from './components/Footer';
 import BookingPage from './components/BookingPage';
 import RegisterPage from './pages/UserRegister';
 import LoginPage from './pages/UserLogin';
@@ -15,7 +15,7 @@ import AdminDashboard from './components/admin/AdminDashboard';
 function App() {
   return (
     <>
-      <Navbar />  {/* Navbar is inside Router from index.jsx */}
+      {/* <Navbar />  Navbar is inside Router from index.jsx */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/vehicles" element={<Vehicles />} />
@@ -27,7 +27,7 @@ function App() {
         <Route path="/admin" element={<AdminLoginPage />} />
         <Route path="/admin/dashboard" element={<AdminDashboard/>} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
       <Toaster />
     </>
   );

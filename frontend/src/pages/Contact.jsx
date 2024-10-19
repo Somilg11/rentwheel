@@ -3,9 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Mail, Phone, MapPin } from "lucide-react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const Contact = () => {
   return (
+    <>
+    <Navbar/>
     <div className="container mx-auto px-4 py-12 pt-40">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Contact Info Section */}
@@ -83,6 +87,8 @@ const Contact = () => {
         </Card>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 

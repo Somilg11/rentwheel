@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Car, Users, Fuel, Activity, CarTaxiFront } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export default function VehiclePage() {
   const [vehicles, setVehicles] = useState([]);
@@ -26,6 +28,8 @@ export default function VehiclePage() {
   ) : [];
 
   return (
+    <>
+    <Navbar/>
     <div className="container mx-auto px-4 py-8 pt-36">
       <h2 className="text-3xl font-bold mb-6 text-center">Available Vehicles</h2>
 
@@ -52,6 +56,8 @@ export default function VehiclePage() {
         )}
       </div>
     </div>
+    <Footer/>
+    </>
   );
 }
 

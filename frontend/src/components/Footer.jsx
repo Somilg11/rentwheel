@@ -32,7 +32,7 @@ export default function Footer() {
               <Balancer>
               Drive in style, anytime, anywhere ...
               <br />
-              <span className="text-zinc-500">- designed and developed by </span><span className="font-semibold tracking-wide">@vanguards</span>
+              <span className="text-zinc-500">-designed and developed by </span><span className="font-semibold tracking-tighter">@vanguards</span>
               </Balancer>
             </p>
           </div>
