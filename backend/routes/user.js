@@ -1,17 +1,18 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
+import multer from 'multer';
+import jwt from 'jsonwebtoken';
+
 
 const prisma = new PrismaClient();
+const upload = multer({ dest: 'uploads/' }); // Configure multer for file uploads
 export const UserRouter = express.Router();
 
-// Secret key for JWT
-const JWT_SECRET = 'your_jwt_secret'; // Use environment variables for production
-
 // Register Route
-UserRouter.post('/register', async (req, res) => {
-    const { firstName, lastName, email, password, dateOfBirth, gender, drivingLicenseImage } = req.body;
+UserRouter.post('/register', upload.single('drivingLicense'), async (req, res) => {
+    const { firstName, lastName, email, password, dateOfBirth, gender } = req.body;
+    const drivingLicenseImage = req.file ? req.file.path : null;
 
     // Basic input validation
     if (!firstName || !lastName || !email || !password || !dateOfBirth || !gender) {
@@ -39,15 +40,23 @@ UserRouter.post('/register', async (req, res) => {
                 password: hashedPassword,
                 dateOfBirth: new Date(dateOfBirth),
                 gender,
-                drivingLicenseImage: drivingLicenseImage || null
+                drivingLicenseImage
             }
         });
 
-        res.status(201).json({ message: 'User registered successfully', user: newUser });
+        const token = jwt.sign(
+            { userId: newUser.id, email: newUser.email },
+            process.env.JWT_SECRET,  // Ensure JWT_SECRET is loaded from environment variables
+            { expiresIn: '1h' } // Token expiration time
+        );
+
+        res.status(201).json({ message: 'User registered successfully', user: newUser, token });
     } catch (error) {
+        console.error('Error registering user:', error);
         res.status(500).json({ message: 'Error registering user', error });
     }
 });
+
 
 // Login Route
 UserRouter.post('/login', async (req, res) => {
@@ -72,16 +81,23 @@ UserRouter.post('/login', async (req, res) => {
         if (!isPasswordValid) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
-
+        
         // Generate JWT token
         const token = jwt.sign(
             { userId: user.id, email: user.email },
-            JWT_SECRET,
+            process.env.JWT_SECRET,  // Ensure JWT_SECRET is loaded from environment variables
             { expiresIn: '1h' } // Token expiration time
         );
+        
 
-        res.status(200).json({ message: 'Login successful', token });
+        
+
+        return res.status(200).json({ message: 'Login successful', token });
     } catch (error) {
-        res.status(500).json({ message: 'Error logging in', error });
+        console.error('Error during login:', error); // Log the error for debugging
+        return res.status(500).json({ 
+            message: 'Error logging in', 
+            error: error.message || 'An unknown error occurred'  // Send a more detailed error message
+        });
     }
 });

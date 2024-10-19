@@ -1,33 +1,41 @@
 import { useState } from 'react';
-import { useNavigate, Navigate, Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import toast from 'react-hot-toast';
 
-// This is a placeholder function. Replace it with your actual API call.
+// API call to register user
 const registerUser = async (userData) => {
-  // Simulate API call
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  console.log('User registered:', userData);
-  // In a real app, you'd make an API call here and handle the response
-  return { success: true };
+  const formData = new FormData();
+  for (const key in userData) {
+    formData.append(key, userData[key]);
+  }
+  const response = await fetch('http://localhost:3000/user/register', {
+    method: 'POST',
+    body: formData,
+  });
+  
+  // Check if the response is ok (status 200-299)
+  if (!response.ok) {
+    throw new Error('Registration failed');
+  }
+  
+  return response.json();
 };
 
 export default function RegisterPage() {
-  const router = useNavigate();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
     password: '',
-    dateOfBirth: null,
+    dateOfBirth: '',
     gender: '',
     drivingLicense: null,
   });
-  
-  const [redirectTo, setRedirectTo] = useState(null); // State to handle redirects
 
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;
@@ -38,30 +46,26 @@ export default function RegisterPage() {
     }
   };
 
-  const handleDateChange = (date) => {
-    setFormData(prev => ({ ...prev, dateOfBirth: date || null }));
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const result = await registerUser(formData);
-      if (result.success) {
-        router.push('/login'); // Redirect to login page after successful registration
+      if (result && result.token) {
+        // Store the token in localStorage
+        localStorage.setItem('token', result.token);
+        // Navigate to the root route
+        navigate('/');
+      } else {
+        console.error('Registration failed:', result.message);
       }
     } catch (error) {
-      console.error('Registration failed:', error);
-      // Handle error (e.g., show error message to user)
+      console.error('Registration error:', error);
+      toast.error("Registration failed. Please try again.");
     }
   };
 
-  // Handle redirects for the links
-  if (redirectTo) {
-    return <Navigate to={redirectTo} replace />;
-  }
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 pt-40 pb-40">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
         <h1 className="text-2xl font-bold mb-6 text-center">Register</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -108,12 +112,12 @@ export default function RegisterPage() {
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="pickupDateTime">Pickup Date & Time</Label>
+            <Label htmlFor="dateOfBirth">Date of Birth</Label>
             <Input
-              id="pickupDateTime"
-              name="pickupDateTime"
-              type="datetime-local"
-              value={formData.pickupDateTime}
+              id="dateOfBirth"
+              name="dateOfBirth"
+              type="date"
+              value={formData.dateOfBirth}
               onChange={handleInputChange}
               required
             />
@@ -125,16 +129,16 @@ export default function RegisterPage() {
               className="flex space-x-4"
             >
               <div className="flex items-center space-x-2">
-                <RadioGroupItem value="male" id="male" />
-                <Label htmlFor="male">Male</Label>
+                <RadioGroupItem value="Male" id="Male" />
+                <Label htmlFor="Male">Male</Label>
               </div>
               <div className="flex items-center space-x-2">
-                <RadioGroupItem value="female" id="female" />
-                <Label htmlFor="female">Female</Label>
+                <RadioGroupItem value="Female" id="Female" />
+                <Label htmlFor="Female">Female</Label>
               </div>
               <div className="flex items-center space-x-2">
-                <RadioGroupItem value="other" id="other" />
-                <Label htmlFor="other">Other</Label>
+                <RadioGroupItem value="Others" id="Others" />
+                <Label htmlFor="Others">Other</Label>
               </div>
             </RadioGroup>
           </div>
@@ -152,14 +156,13 @@ export default function RegisterPage() {
           <Button type="submit" className="w-full">Register</Button>
         </form>
         <div className="mt-4 text-center">
-          <Button variant = "outline"
-            onClick={() => setRedirectTo('/login')}
+          <Button variant="outline"
+            onClick={() => navigate('/login')}
             className="text-blue-600 hover:underline border-none shadow-none"
           >
             Already have an account? Login
           </Button>
         </div>
-        
       </div>
     </div>
   );

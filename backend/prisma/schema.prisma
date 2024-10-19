@@ -15,7 +15,7 @@ model User {
   password           String
   dateOfBirth        DateTime
   gender             Gender    // Enum for gender
-  drivingLicenseImage String   // Image for driving license
+  drivingLicenseImage String?  // Image for driving license
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
   bookings           Booking[] // Relation to bookings

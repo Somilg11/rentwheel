@@ -1,4 +1,3 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';  // Navbar uses useNavigate
 import Home from './pages/Home';
 import Vehicles from './pages/Vehicles';
@@ -9,12 +8,14 @@ import BookingPage from './components/BookingPage';
 import RegisterPage from './pages/UserRegister';
 import LoginPage from './pages/UserLogin';
 import AdminLoginPage from './pages/AdminLogin';
+import { Toaster } from 'react-hot-toast';
+import { Routes, Route } from 'react-router-dom'; 
 // import AdminDashboard from './components/admin/AdminDashboard';
 
 function App() {
   return (
-    <Router> {/* Ensure Router is here */}
-      <Navbar />  {/* Navbar is now inside Router */}
+    <>
+      <Navbar />  {/* Navbar is inside Router from index.jsx */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/vehicles" element={<Vehicles />} />
@@ -27,7 +28,8 @@ function App() {
         {/* <Route path="/admindashboard" element={<AdminDashboard/>} /> */}
       </Routes>
       <Footer />
-    </Router>
+      <Toaster />
+    </>
   );
 }
 
