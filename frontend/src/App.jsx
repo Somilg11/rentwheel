@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import BookingPage from './components/BookingPage';
 import RegisterPage from './pages/UserRegister';
 import LoginPage from './pages/UserLogin';
+import AdminLoginPage from './pages/AdminLogin';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/booking" element={<BookingPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/admin" element={<AdminLoginPage/>} />
       </Routes>
       <Footer />
     
