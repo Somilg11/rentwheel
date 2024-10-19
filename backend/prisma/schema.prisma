@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"  // or your preferred database
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -14,11 +14,11 @@ model User {
   email              String    @unique
   password           String
   dateOfBirth        DateTime
-  gender             Gender    // Consider using an enum for gender if needed
-  drivingLicenseImage String  // Optional image format for driving license
+  gender             Gender    // Enum for gender
+  drivingLicenseImage String   // Image for driving license
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
-  bookings           Booking[] // Relationship to bookings
+  bookings           Booking[] // Relation to bookings
 }
 
 model Admin {
@@ -28,7 +28,7 @@ model Admin {
   email        String    @unique
   password     String
   dateOfBirth  DateTime
-  gender       String    // Consider using an enum for gender if needed
+  gender       Gender
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 }
@@ -39,35 +39,48 @@ model Booking {
   dropLocation   String
   pickupDateTime DateTime
   dropDateTime   DateTime
-  carTypeId      Int      // Foreign key to CarType model
-  carType        CarType   @relation(fields: [carTypeId], references: [id]) // Define relation to CarType
+  vehicleId      Int      // Foreign key to Vehicle model
+  vehicle        Vehicle   @relation(fields: [vehicleId], references: [id])
   userId         Int      // Foreign key to User model
-  user           User      @relation(fields: [userId], references: [id])    // Define relation to User
+  user           User      @relation(fields: [userId], references: [id])
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 }
 
-model CarType {
+model Vehicle {
   id           Int      @id @default(autoincrement())
-  name         String   // Renamed from brand to name
-  image        String
-  seats        Int
-  pricePerDay  Float
-  fuelType     FuelType
-  transmission Transmission
-  condition    Condition
-  bookings     Booking[] // Adding the relation back to Booking
+  name         String   // Vehicle name
+  image        String   // Image of the car
+  seats        Int      // Number of seats
+  pricePerDay  Float    // Rental price per day
+  fuelType     FuelType // Enum for fuel type
+  transmission Transmission // Enum for transmission type
+  condition    Condition // Enum for car condition
+  bookings     Booking[] // Relation to Booking model
+  status       CarStatus   // New field for status (available, rented, maintenance)
+  type         VehicleType
 }
 
-enum Condition {
-  Excellent
-  Good
+model Subscriber {
+  id             Int       @id @default(autoincrement())
+  email          String    @unique
+  status         SubscriptionStatus // Enum for subscriber status
+  subscribedDate DateTime  @default(now())
 }
 
-enum Transmission {
-  AUTO
-  MANUAL
+model Order {
+  id             Int       @id @default(autoincrement())
+  customerName   String
+  vehicleName    String
+  startDate      DateTime
+  endDate        DateTime
+  totalAmount    Float
+  status         OrderStatus // Enum for order status
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 }
+
+// Enums
 
 enum Gender {
   Male
@@ -75,10 +88,48 @@ enum Gender {
   Others
 }
 
-// FuelType enum for different types of fuel
 enum FuelType {
   Petrol
   Diesel
   Electric
   Hybrid
+}
+
+enum Transmission {
+  AUTO
+  MANUAL
+}
+
+enum Condition {
+  Excellent
+  Good
+}
+
+enum SubscriptionStatus {
+  active
+  unsubscribed
+}
+
+enum OrderStatus {
+  pending
+  active
+  completed
+  cancelled
+}
+
+enum CarStatus {
+  Available
+  Rented
+  Maintenance
+}
+
+enum VehicleType {
+  SUV
+  Sedan
+  Truck
+  Coupe
+  Convertible
+  Hatchback
+  Minivan
+  Other
 }
