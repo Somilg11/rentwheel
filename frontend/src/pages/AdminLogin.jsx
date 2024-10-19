@@ -1,17 +1,27 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import toast from 'react-hot-toast';
 
-// This is a placeholder function. Replace it with your actual API call.
+// API call to login admin
 const loginAdmin = async (credentials) => {
-  // Simulate API call
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  console.log('Admin logged in:', credentials);
-  // In a real app, you'd make an API call here and handle the response
-  return { success: true };
+  const response = await fetch('http://localhost:3000/admin/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(credentials),
+  });
+
+  // Check if the response is okay
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Login failed');
+  }
+
+  return response.json();
 };
 
 export default function AdminLoginPage() {
@@ -30,12 +40,17 @@ export default function AdminLoginPage() {
     e.preventDefault();
     try {
       const result = await loginAdmin(credentials);
-      if (result.success) {
+      if (result) {
+        toast.success("Login successful");
+        // Store the token in localStorage if your API returns one
+        localStorage.setItem('adminToken', result.token); // Adjust according to your API response
         navigate('/admin/dashboard'); 
+      } else {
+        toast.error("Login failed. Please check your credentials.");
       }
     } catch (error) {
       console.error('Admin login failed:', error);
-      
+      toast.error(error.message || "Login failed. Please try again.");
     }
   };
 
@@ -70,7 +85,7 @@ export default function AdminLoginPage() {
         </form>
         
         <div className="mt-2 text-center">
-          <Button variant = "outline"
+          <Button variant="outline"
             onClick={() => navigate('/login')}
             className="text-green-600 hover:underline border-none shadow-none"
           >

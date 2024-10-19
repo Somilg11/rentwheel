@@ -10,7 +10,7 @@ import LoginPage from './pages/UserLogin';
 import AdminLoginPage from './pages/AdminLogin';
 import { Toaster } from 'react-hot-toast';
 import { Routes, Route } from 'react-router-dom'; 
-// import AdminDashboard from './components/admin/AdminDashboard';
+import AdminDashboard from './components/admin/AdminDashboard';
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/admin" element={<AdminLoginPage />} />
-        {/* <Route path="/admindashboard" element={<AdminDashboard/>} /> */}
+        <Route path="/admin/dashboard" element={<AdminDashboard/>} />
       </Routes>
       <Footer />
       <Toaster />
