@@ -1,5 +1,5 @@
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './components/Navbar';  // Navbar uses useNavigate
 import Home from './pages/Home';
 import Vehicles from './pages/Vehicles';
 import About from './pages/About';
@@ -12,9 +12,8 @@ import AdminLoginPage from './pages/AdminLogin';
 
 function App() {
   return (
-   <BrowserRouter>
-    
-      <Navbar />
+    <Router> {/* Ensure Router is here */}
+      <Navbar />  {/* Navbar is now inside Router */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/vehicles" element={<Vehicles />} />
@@ -26,8 +25,7 @@ function App() {
         <Route path="/admin" element={<AdminLoginPage />} />
       </Routes>
       <Footer />
-    
-    </BrowserRouter>
+    </Router>
   );
 }
 

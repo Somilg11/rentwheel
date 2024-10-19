@@ -3,11 +3,15 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import LoginButton from "./LoginButton";
+import LoginButton from "./LoginButton"; // Your existing login button component
 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  // Replace with real login status and user information.
+  
+  
 
   const navItems = [
     { name: "Home", href: "/" },
@@ -28,6 +32,7 @@ const Navbar = () => {
               </span>
             </a>
           </div>
+
           <div className="hidden md:ml-6 md:flex md:space-x-4 lg:space-x-8">
             {navItems.map((item) => (
               <a
@@ -39,9 +44,13 @@ const Navbar = () => {
               </a>
             ))}
           </div>
+
+          {/* Right-side section for login button or avatar */}
           <div className="hidden md:ml-6 md:flex md:items-center">
-            <LoginButton /> {/* Use the LoginButton here */}
+            <LoginButton name={"Login"} />  
           </div>
+
+          {/* Mobile Menu */}
           <div className="flex items-center md:hidden">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
@@ -74,7 +83,7 @@ const Navbar = () => {
                       {item.name}
                     </a>
                   ))}
-                  <LoginButton /> {/* Use the LoginButton in the mobile menu */}
+                  <LoginButton name={"Login"} />  
                 </div>
               </SheetContent>
             </Sheet>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 import { useNavigate, Navigate, Link } from 'react-router-dom';
 
 import { Button } from "@/components/ui/button";
@@ -7,15 +8,17 @@ import { Label } from "@/components/ui/label";
 
 // This is a placeholder function. Replace it with your actual API call.
 const loginUser = async (credentials) => {
-  // Simulate API call
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  console.log('User logged in:', credentials);
-  // In a real app, you'd make an API call here and handle the response
-  return { success: true };
+  try {
+    const response = await axios.post('http://localhost:3000/user/login', credentials);
+    return response.data; // Assuming the backend sends { message: "Login successful", token: "..." }
+  } catch (error) {
+    console.error('Login failed', error);
+    return null;
+  }
 };
 
 export default function LoginPage() {
-  const router = useNavigate();
+  const navigate = useNavigate(); // Correct function for navigation in React Router v6
   const [credentials, setCredentials] = useState({
     email: '',
     password: '',
@@ -32,16 +35,23 @@ export default function LoginPage() {
     e.preventDefault();
     try {
       const result = await loginUser(credentials);
-      if (result.success) {
-        router.push('/dashboard'); 
+      
+      if (result && result.token) { // Check if the token is present in the response
+        console.log('Login successful:', result.message);
+        
+        // Optionally store the token in localStorage or sessionStorage for future use
+        localStorage.setItem('token', result.token);
+
+        // Redirect to the dashboard or homepage
+        navigate('/'); // Correct usage in React Router v6
+      } else {
+        console.error('Login failed: Invalid credentials or server error');
       }
     } catch (error) {
       console.error('Login failed:', error);
-      
     }
   };
 
-  
   if (redirectTo) {
     return <Navigate to={redirectTo} replace />;
   }
