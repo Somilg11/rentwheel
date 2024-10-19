@@ -23,7 +23,7 @@ function App() {
         <Route path="/booking" element={<BookingPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/admin" element={<AdminLoginPage/>} />
+        <Route path="/admin" element={<AdminLoginPage />} />
       </Routes>
       <Footer />
     
