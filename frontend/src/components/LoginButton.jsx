@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-const LoginButton = () => {
+const LoginButton = ({name}) => {
   const [redirect, setRedirect] = useState(false);
 
   const handleLoginClick = () => {
@@ -18,9 +18,7 @@ const LoginButton = () => {
     <Button
       onClick={handleLoginClick}
       className="text-sm lg:text-base px-4 py-2 lg:px-6 lg:py-3"
-    >
-      Login
-    </Button>
+    >{name}</Button>
   );
 };
 
