@@ -24,30 +24,32 @@ export default function AdminDashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [dashboardStats, setDashboardStats] = useState({
     totalVehicles: 0,
-    activeRentals: 0,
-    newInquiries: 0,
-    totalRevenue: 0,
-  })
+    totalSubscribers: 0,
+    totalOrders: 0,// Ensure this is set to 0 initially
+  });
+  
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen)
 
   useEffect(() => {
     const fetchDashboardStats = async () => {
       try {
-        const stats = await apiService.getDashboardStats()
-        setDashboardStats(stats)
+        const stats = await apiService.getDashboardStats();
+        console.log("Fetched dashboard stats:", stats); // Log the stats
+        setDashboardStats(stats);
       } catch (error) {
-        console.error("Failed to fetch dashboard stats:", error)
+        console.error("Failed to fetch dashboard stats:", error);
       }
-    }
-
-    fetchDashboardStats()
-  }, [])
+    };
+  
+    fetchDashboardStats();
+  }, []);
+  
 
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
-      <aside
+      {/* <aside
         className={`${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}
@@ -79,7 +81,7 @@ export default function AdminDashboard() {
             </Button>
           </nav>
         </div>
-      </aside>
+      </aside> */}
 
       {/* Main Content */}
       <div className="flex flex-1 flex-col overflow-hidden">
@@ -138,7 +140,7 @@ export default function AdminDashboard() {
                 <BarChart className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">${dashboardStats.totalRevenue.toLocaleString()}</div>
+                <div className="text-2xl font-bold">${dashboardStats.totalRevenue}</div>
                 <p className="text-xs text-muted-foreground">+20.1% from last month</p>
               </CardContent>
             </Card>
