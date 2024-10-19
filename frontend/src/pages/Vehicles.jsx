@@ -1,32 +1,31 @@
-/* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Car, Users, Fuel, Activity, CarTaxiFront } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-// The function component that renders the vehicle page
 export default function VehiclePage() {
-  // State for vehicles and search term
   const [vehicles, setVehicles] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-
   useEffect(() => {
-    
-    fetch("/api/vehicles")
+    fetch("http://localhost:3000/admin/vehicles")
       .then((res) => res.json())
-      .then((data) => setVehicles(data))
+      .then((data) => {
+        // console.log("Fetched vehicles:", data); // Log the fetched data
+        setVehicles(data.vehicles);
+        // console.log(vehicles);
+      })
       .catch((error) => console.error("Error fetching vehicles:", error));
   }, []);
 
-
-  const filteredVehicles = vehicles.filter((vehicle) =>
+  const filteredVehicles = Array.isArray(vehicles) ? vehicles.filter((vehicle) =>
     vehicle.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  ) : [];
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 pt-36">
       <h2 className="text-3xl font-bold mb-6 text-center">Available Vehicles</h2>
 
       {/* Search Bar */}
@@ -46,16 +45,21 @@ export default function VehiclePage() {
             <VehicleCard key={vehicle.id} vehicle={vehicle} />
           ))
         ) : (
-          <p className="text-center col-span-full text-gray-500 font-bold text-2xl"><span className="inline-flex gap-2 items-center">no vehicles found<CarTaxiFront/></span></p>
+          <p className="text-center col-span-full text-gray-500 font-bold text-2xl">
+            <span className="inline-flex gap-2 items-center">no vehicles found<CarTaxiFront /></span>
+          </p>
         )}
       </div>
     </div>
   );
 }
 
-// Component for individual vehicle cards
 function VehicleCard({ vehicle }) {
   const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
+  const goToBooking = () => {
+    navigate('/booking');
+  }
 
   return (
     <Card
@@ -104,7 +108,7 @@ function VehicleCard({ vehicle }) {
       </CardContent>
       <CardFooter className="p-4">
         {isHovered && (
-          <Button className="w-full" onClick={() => window.location.href = `/rent/${vehicle.id}`}>
+          <Button className="w-full" onClick={goToBooking}>
             Rent Now
           </Button>
         )}
