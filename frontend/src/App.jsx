@@ -9,6 +9,7 @@ import BookingPage from './components/BookingPage';
 import RegisterPage from './pages/UserRegister';
 import LoginPage from './pages/UserLogin';
 import AdminLoginPage from './pages/AdminLogin';
+// import AdminDashboard from './components/admin/AdminDashboard';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/admin" element={<AdminLoginPage />} />
+        {/* <Route path="/admindashboard" element={<AdminDashboard/>} /> */}
       </Routes>
       <Footer />
     </Router>

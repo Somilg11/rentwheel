@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate, Navigate, Link } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -90,7 +90,7 @@ export default function LoginPage() {
             onClick={() => setRedirectTo('/register')}
             className="text-blue-600 hover:underline border-none shadow-none"
           >
-            Don't have an account? Register
+            Don&apos;t have an account? Register
           </Button>
         </div>
         <div className="mt-2 text-center">
