@@ -14,7 +14,7 @@ import { Button } from "./ui/button";
 
 export default function Footer() {
   return (
-    <footer className="p-20">
+    <footer className="p-20 mt-20">
         <div className="grid gap-12 md:grid-cols-[1.5fr_0.5fr_0.5fr]">
           <div className="not-prose flex flex-col gap-6">
             <a href="/">
