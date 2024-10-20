@@ -32,11 +32,11 @@ function Hero() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <img
-              src="./hero.png"
+              src="./heroimage1.jpeg"
               alt="Luxury car rental"
-              width={400}
-              height={300}
-            //   className="rounded-lg shadow-2xl"
+              width={500}
+              height={500}
+              className="rounded-lg shadow-2xl"
             />
           </motion.div>
         </div>
