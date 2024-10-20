@@ -12,6 +12,8 @@ const loginUser = async (credentials) => {
   try {
     const response = await axios.post('http://localhost:3000/user/login', credentials);
     localStorage.setItem('token', response.data.token);
+    console.log(response.data);
+    localStorage.setItem('userId', response.data.userId);
     toast.success("Login successful");
     return response.data; 
   } catch (error) {

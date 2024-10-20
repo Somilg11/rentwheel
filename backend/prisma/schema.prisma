@@ -34,18 +34,19 @@ model Admin {
 }
 
 model Booking {
-  id             Int      @id @default(autoincrement())
-  pickupLocation String
-  dropLocation   String
-  pickupDateTime DateTime
-  dropDateTime   DateTime
-  vehicleId      Int      // Foreign key to Vehicle model
-  vehicle        Vehicle   @relation(fields: [vehicleId], references: [id])
-  userId         Int      // Foreign key to User model
-  user           User      @relation(fields: [userId], references: [id])
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+    id             Int      @id @default(autoincrement())
+    pickupLocation String
+    dropLocation   String
+    pickupDateTime DateTime
+    dropDateTime   DateTime
+    vehicleId      Int      // Foreign key to Vehicle model
+    vehicle        Vehicle   @relation(fields: [vehicleId], references: [id])
+    userId         Int      // Foreign key to User model
+    user           User      @relation(fields: [userId], references: [id])
+    createdAt      DateTime  @default(now())
+    updatedAt      DateTime  @updatedAt
 }
+
 
 model Vehicle {
   id           Int      @id @default(autoincrement())

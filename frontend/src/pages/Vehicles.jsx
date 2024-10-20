@@ -16,47 +16,50 @@ export default function VehiclePage() {
     fetch("http://localhost:3000/admin/vehicles")
       .then((res) => res.json())
       .then((data) => {
-        // console.log("Fetched vehicles:", data); // Log the fetched data
         setVehicles(data.vehicles);
-        // console.log(vehicles);
       })
       .catch((error) => console.error("Error fetching vehicles:", error));
   }, []);
 
-  const filteredVehicles = Array.isArray(vehicles) ? vehicles.filter((vehicle) =>
-    vehicle.name.toLowerCase().includes(searchTerm.toLowerCase())
-  ) : [];
+  const filteredVehicles = Array.isArray(vehicles)
+    ? vehicles.filter((vehicle) =>
+        vehicle.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : [];
 
   return (
     <>
-    <Navbar/>
-    <div className="container mx-auto px-4 py-8 pt-36">
-      <h2 className="text-3xl font-bold mb-6 text-center">Available Vehicles</h2>
+      <Navbar />
+      <div className="container mx-auto px-4 py-8 pt-36">
+        <h2 className="text-3xl font-bold mb-6 text-center">Available Vehicles</h2>
 
-      {/* Search Bar */}
-      <div className="mb-8 flex justify-center">
-        <Input
-          placeholder="Search vehicles..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full max-w-md"
-        />
-      </div>
+        {/* Search Bar */}
+        <div className="mb-8 flex justify-center">
+          <Input
+            placeholder="Search vehicles..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full max-w-md"
+          />
+        </div>
 
-      {/* Vehicle Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {filteredVehicles.length > 0 ? (
-          filteredVehicles.map((vehicle) => (
-            <VehicleCard key={vehicle.id} vehicle={vehicle} />
-          ))
-        ) : (
-          <p className="text-center col-span-full text-gray-500 font-bold text-2xl">
-            <span className="inline-flex gap-2 items-center">no vehicles found<CarTaxiFront /></span>
-          </p>
-        )}
+        {/* Vehicle Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredVehicles.length > 0 ? (
+            filteredVehicles.map((vehicle) => (
+              <VehicleCard key={vehicle.id} vehicle={vehicle} />
+            ))
+          ) : (
+            <p className="text-center col-span-full text-gray-500 font-bold text-2xl">
+              <span className="inline-flex gap-2 items-center">
+                no vehicles found
+                <CarTaxiFront />
+              </span>
+            </p>
+          )}
+        </div>
       </div>
-    </div>
-    <Footer/>
+      <Footer />
     </>
   );
 }
@@ -64,9 +67,17 @@ export default function VehiclePage() {
 function VehicleCard({ vehicle }) {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
+  
   const goToBooking = () => {
-    navigate('/booking');
-  }
+    navigate('/booking', { 
+      state: { 
+        price: vehicle.pricePerDay, 
+        name: vehicle.name,  // Send vehicle name
+        seatCapacity: vehicle.seats, 
+        transmission: vehicle.transmission 
+      }
+    });
+  };
 
   return (
     <Card
