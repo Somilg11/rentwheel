@@ -4,10 +4,6 @@ import axios from 'axios';
 const apiDelay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 // Mock Data
-const demoVehicles = [
-  { id: '1', name: 'Toyota Camry', type: 'sedan', status: 'available' },
-  { id: '2', name: 'Honda CR-V', type: 'SUV', status: 'rented' },
-];
 const demoSubscribers = [
   { id: '1', email: 'john@example.com', status: 'active', subscribedDate: '2023-01-15' },
   { id: '2', email: 'jane@example.com', status: 'unsubscribed', subscribedDate: '2023-02-20' },
@@ -55,24 +51,40 @@ export const apiService = {
 
   async addVehicle(vehicle) {
     await apiDelay(500);
-    const newVehicle = { ...vehicle, id: String(demoVehicles.length + 1) };
-    demoVehicles.push(newVehicle); // Simulating adding vehicle to mock data
-    return newVehicle;
+    const response = await axios.post('http://localhost:3000/admin/vehicles', vehicle);
+    return response.data.vehicle; // Assuming the backend returns the created vehicle
   },
 
   async updateVehicle(id, vehicle) {
-    await apiDelay(500);
-    const index = demoVehicles.findIndex(v => v.id === id);
-    if (index === -1) throw new Error('Vehicle not found');
-    demoVehicles[index] = { ...demoVehicles[index], ...vehicle }; // Simulating vehicle update
-    return demoVehicles[index];
+    try {
+      // Convert the 'seats' field to an integer if it's provided
+      if (vehicle.seats) {
+        vehicle.seats = parseInt(vehicle.seats, 10); // Ensure 'seats' is a number
+      }
+  
+      // Perform a PUT request to the backend to update the vehicle details
+      const response = await axios.put(`http://localhost:3000/admin/vehicles/${id}`, vehicle);
+  
+      // Return the updated vehicle from the response
+      return response.data.vehicle;
+    } catch (error) {
+      console.error('Error updating vehicle:', error);
+      throw new Error(error.response?.data?.message || 'Error updating vehicle');
+    }
   },
+  
 
   async deleteVehicle(id) {
-    await apiDelay(500);
-    const index = demoVehicles.findIndex(v => v.id === id);
-    if (index === -1) throw new Error('Vehicle not found');
-    demoVehicles.splice(index, 1); // Simulating deletion of a vehicle from mock data
+    try {
+      // Perform a DELETE request to the backend to delete the vehicle
+      const response = await axios.delete(`http://localhost:3000/admin/vehicles/${id}`);
+  
+      // Return the confirmation message or deleted vehicle from the response
+      return response.data.message;
+    } catch (error) {
+      console.error('Error deleting vehicle:', error);
+      throw new Error(error.response?.data?.message || 'Error deleting vehicle');
+    }
   },
 
   async getNewsletterSubscribers(page, searchTerm) {
