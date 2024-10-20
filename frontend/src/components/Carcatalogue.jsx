@@ -9,19 +9,19 @@ import { useNavigate } from 'react-router-dom';
 const cars = [
   {
     id: 1,
-    name: "Toyota Camry",
+    name: "Bikes",
     pricePerDay: 50,
-    image: "./hero.png",
+    image: "https://cdn.motor1.com/images/mgl/RqnwJw/s1/2023-harley-davidson-120th-anniversary-models---main.jpg",
     transmission: "Automatic",
-    seats: 5,
-    fuelType: "Gasoline",
+    seats: 1,
+    fuelType: "Petrol",
     condition: "Excellent"
   },
   {
     id: 2,
-    name: "Honda Civic",
+    name: "Mid-Ranger",
     pricePerDay: 45,
-    image: "./hero.png",
+    image: "https://tse2.mm.bing.net/th?id=OIP.E3dXsARgOI3rGoOG1yPUrwHaEo&pid=Api&P=0&h=180",
     transmission: "Manual",
     seats: 5,
     fuelType: "Hybrid",
@@ -29,9 +29,9 @@ const cars = [
   },
   {
     id: 3,
-    name: "Ford Mustang",
+    name: "Luxury",
     pricePerDay: 75,
-    image: "./hero.png",
+    image: "https://e0.pxfuel.com/wallpapers/363/133/desktop-wallpaper-dark-audi-rs6-autumn-shoot-audi-rs6-dream-cars-audi-custom-audi.jpg",
     transmission: "Automatic",
     seats: 4,
     fuelType: "Gasoline",
@@ -39,9 +39,9 @@ const cars = [
   },
   {
     id: 4,
-    name: "Tesla Model 3",
+    name: "Trucks",
     pricePerDay: 90,
-    image: "./hero.png",
+    image: "https://eskipaper.com/images/ford-truck-5.jpg",
     transmission: "Automatic",
     seats: 5,
     fuelType: "Electric",
@@ -52,7 +52,7 @@ const cars = [
 export default function CarCatalogue() {
   return (
     <div className="container mx-auto px-4 py-4">
-      <h2 className="text-3xl font-bold mb-6 text-center">Our Car Collection</h2>
+      <h2 className="text-3xl font-bold mb-6 text-center">Our Vehicle Collection</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {cars.map((car) => (
           <CarCard key={car.id} car={car} />
@@ -66,7 +66,7 @@ function CarCard({ car }) {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
   const goToBooking = () => {
-    navigate('/booking');
+    navigate('/vehicles');
   }
   return (
     <Card

@@ -87,6 +87,7 @@ export default function BookingPage() {
             throw new Error('Failed to create booking');
         }
 
+        // eslint-disable-next-line no-unused-vars
         const result = await response.json();
         toast.success("Your booking has been successfully created.");
     } catch (error) {
