@@ -8,9 +8,7 @@ import {
   Car,
   ClipboardList,
   Contact,
-  Mail,
   Menu,
-  Package,
   Search,
 } from "lucide-react"
 import VehiclesSection from "./VehiclesSection"
